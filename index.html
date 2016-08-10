@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <title>thingsNStuff</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/animate.css">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div id="container">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+     <p class="navbar-brand" href="#">
+     thingsNStuff
+     </p>
+      <ul class="nav navbar-nav">
+        <li class="inactive"><a href="#" id="homeButton">Home<span class="sr-only">(current)</span></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Category <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="dropMenu">
+          </ul>
+        </li>
+        <form class="navbar-form navbar-left">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" id="inputBox">
+          </div>
+        </form>
+      </ul>
+      <form class="navbar-form navbar-right">
+      <ul class="nav navbar-nav navbar-right">
+        <li><div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Username:</span>
+          <input type="text" class="form-control" placeholder="Enter Username" aria-describedby="basic-addon1">
+        </div></li>
+        
+        <li><div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Password:</span>
+        <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="basic-addon1">
+        </div></li>
+      </ul>
+      </form>
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<div id="myModalSpace"></div>
+<h1 id="featureTag">Featured Products</h1>
+<h5 id="catTag"></h5>
+
+<div id="moreInfo"></div>
+
+<div class="row" id="featureBar"></div>
+<div id="cart">
+  <h10>Cart</h10>
+  <p>The cart can currently only add and remove items, no checkout set up.</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quanity</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody id="cartBody">
+    </tbody>
+  </table>
+</div>
+
+<p id="heyNow">All Categories</p>
+
+<div class="row" id="displayList"></div>
+
+
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/main/main.js"></script>
+</body>
+</html>
