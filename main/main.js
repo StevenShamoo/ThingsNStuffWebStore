@@ -79,7 +79,7 @@ function qtyFiller(arrayOfQty){
 }
 
 //add to cart click handler
-function addClick(target, idUse, quanityInput) { 
+function addClick(target, idUse, quanityInput, modalMethod) { 
   $(target + idUse).click( function() {
     if ($('#tr' + idUse).val() === undefined) {
       $('#cartBody').append('<tr class="itemsClear" id="tr'+ idUse +'"></tr>');
@@ -96,7 +96,6 @@ function addClick(target, idUse, quanityInput) {
 
     $('#cartPrice' + idUse).html(('$' + (qtyArray[idUse] * priceArray[idUse]).toFixed(2)) + ' ' +'<button id="removeItemHere' + idUse + '" type="button" class="btn btn-default btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button> <span id="removeItem">Remove Item');
 
- 
 
     var qtyReduced = _.reduce(qtyArray, function(memo, value, key){
     
@@ -139,6 +138,7 @@ function addClick(target, idUse, quanityInput) {
       $('#cartPrice' + idUse).remove();
     }
     $('.qty').val('1');
+    $(modalMethod + idUse).modal("toggle")
   })
 }
 
@@ -237,10 +237,9 @@ function modalAppend(productsList) {
     $('#myModalProp' + idUse).append('<p>Price: $' + value.price.toFixed(2) + '</p>' );
     $('#myModalProp' + idUse).append('<p> <u>Expanded Description:</u> ' + value.expandedDesc + '</p></div>');
     $('#myModalProp' + idUse).append('<div class="modal-footer"><div id="qtyStyleModal"><h11>Qty:</h11><input type="number" class="qty" id="qtyModal' + idUse + '"></div><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><a href="#" class="btn btn-primary" role="button" id="cartIdModal' + idUse + '">Add to Cart</a></div>');
-    addClick('#cartIdModal', idUse, '#qtyModal');
+    addClick('#cartIdModal', idUse, '#qtyModal', '#myModal');
   });
 }
-
 
 //Appends any list of product objects passed through it
 function appendToPage(productsList) {
@@ -314,7 +313,7 @@ _.each(randoArray, function(value, key){
   $('#myModalPropSpace' + idUse).append('<p>Price: $' + value.price.toFixed(2) + '</p>' );
   $('#myModalPropSpace' + idUse).append('<p> <u>Expanded Description:</u> ' + value.expandedDesc + '</p></div>');
   $('#myModalPropSpace' + idUse).append('<div class="modal-footer"><div id="qtyStyleModalSpace"><h11>Qty:</h11><input type="number" class="qty" id="qtyModalSpace' + idUse + '"></div><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><a href="#" class="btn btn-primary" role="button" id="cartIdModalSpace' + idUse + '">Add to Cart</a></div>');
-  addClick('#cartIdModalSpace', idUse, '#qtyModalSpace')
+  addClick('#cartIdModalSpace', idUse, '#qtyModalSpace', '#myModalDiv');
 })
 
 
