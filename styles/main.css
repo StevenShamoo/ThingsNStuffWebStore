@@ -13,7 +13,6 @@
   margin: auto;
 }
 
-
 #imageTime {
   height: auto;
   width: auto;
@@ -67,6 +66,9 @@ h5 {
 h6{
   text-align: center;
 }
+h11{
+   color:#e74c3c;
+}
 
 #heyNow {
   text-align: center;
@@ -79,7 +81,7 @@ h6{
 }
 .paddedLeft{
   padding-left:200px;
-  padding-top: 10px;
+  padding-top: 6px;
 }
 
 #imageModal {
@@ -105,6 +107,30 @@ h6{
 
 }
 .modalTime{
-  margin-top: 7px;
+  margin-top: 8px;
   padding-left: 20px;
+}
+#cartButton {
+  margin-right: 5px;
+}
+#clearButton{
+  margin-right: 15px;
+}
+#checkOutButton{
+  margin-right: 100px;
+}
+#removeItem {
+  font-size: 10px;
+
+}
+#removeItemHere {
+  margin-left:10px;
+}
+#numInCart {
+  padding-right: 5px;
+  font-size: 10px;
+  color:#27ae60;
+}
+#numInCartList{
+  padding-top :15px;
 }

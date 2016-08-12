@@ -6,7 +6,7 @@ var products = [
     picture_url: "https://upload.wikimedia.org/wikipedia/en/4/4e/US_cover_of_Go_Set_a_Watchman.jpg",
     name: "Go Set a Watchman",
     category: "Books",
-    selling_points: "Incredibly miseleading title and cover, not for Train-lovers or Watchman enthusiast",
+    selling_points: "Incredibly miseleading title and cover, not for Train-lovers or Watchman enthusiast.",
     price: 24.99,
     expandedDesc: lorem
     
@@ -77,6 +77,94 @@ function qtyFiller(arrayOfQty){
     arrayOfQty[i] = 0;
   }
 }
+
+//add to cart click handler
+function addClick(target, idUse, quanityInput) { 
+  $(target + idUse).click( function() {
+    if ($('#tr' + idUse).val() === undefined) {
+      $('#cartBody').append('<tr class="itemsClear" id="tr'+ idUse +'"></tr>');
+    }
+    if ($('#cartName' + idUse ).val() === undefined) {
+      $('#tr' + idUse).append('<td class="itemsClear" id="cartName' + idUse + '">' + nameArray[idUse] + '</td>');
+      $('#tr' + idUse).append('<td class="quantityClear" id="cartqty' + idUse + '"></td>');
+      $('#tr' + idUse).append('<td class="totalClear" id="cartPrice' + idUse + '"></td>');
+      $('#cartPrice' + idUse).append()
+    }
+    qtyArray[idUse] = (qtyArray[idUse] + parseInt($(quanityInput + idUse).val()));
+
+    $('#cartqty' + idUse).html(qtyArray[idUse]);
+
+    $('#cartPrice' + idUse).html(('$' + (qtyArray[idUse] * priceArray[idUse]).toFixed(2)) + ' ' +'<button id="removeItemHere' + idUse + '" type="button" class="btn btn-default btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button> <span id="removeItem">Remove Item');
+
+ 
+
+    var qtyReduced = _.reduce(qtyArray, function(memo, value, key){
+    
+      return memo + value
+    
+    }, 0);
+
+    cartTotalGlobal += (parseInt($(quanityInput + idUse).val()) * priceArray[idUse])
+
+    $('#numInCart').html(qtyReduced + ' Items in Cart');
+
+       //removeButton
+    $('#removeItemHere' + idUse).click(function(){
+      console.log('cartTOts',priceArray[idUse] )
+      cartTotalGlobal -= (qtyArray[idUse] * priceArray[idUse])
+      qtyArray[idUse] = 0;
+      qtyReduced = _.reduce(qtyArray, 
+        function(memo, value, key){
+    
+          return memo + value
+    
+        }, 0);
+      $('#numInCart').html(qtyReduced + ' Items in Cart')
+      $('#qtyC').html('Total Items: ' + qtyReduced);
+      $('#cartTotalC').html('$' + cartTotalGlobal.toFixed(2));
+      $('#tr' + idUse).remove();
+      if(cartTotalGlobal <= 0){
+        $('#cartTotal').remove();
+      }
+    })
+
+    $('#cartTotal').remove();
+    $('#cartBody').append('<tr class="itemsClear" id="cartTotal"></tr>');
+    $('#cartTotal').append('<td> Total </td>');
+    $('#cartTotal').append('<td id="qtyC"> Total Items: ' + qtyReduced + '</td>');
+    $('#cartTotal').append('<td id="cartTotalC">$' + cartTotalGlobal.toFixed(2) + '</td>')
+
+    if(qtyArray[idUse] === 0) {
+      $('#cartName' + idUse).remove();
+      $('#cartqty' +idUse).remove();
+      $('#cartPrice' + idUse).remove();
+    }
+    $('.qty').val('1');
+  })
+}
+
+//Cart Button
+$('#cartButton').click(function() {
+  $('#featureTag').hide();
+  $('#featureBar').hide();
+  $('#heyNow').hide();
+  $('#catTag').hide();
+  $('#displayList').empty();
+  $('#inputBox').val('');
+  $('#cart').show();
+})
+
+//ClearCart Button
+$('#clearButton').click(function(){
+  $('.itemsClear').remove();
+  $('.quantityClear').remove();
+  $('.totalClear').remove();
+  $('#numInCart').html('0 Items in Cart');
+})
+
+
+
+
 
 
 
@@ -149,8 +237,8 @@ function modalAppend(productsList) {
     $('#myModalProp' + idUse).append('<p>Category: ' + value.category +'</p>');
     $('#myModalProp' + idUse).append('<p>Price: $' + value.price.toFixed(2) + '</p>' );
     $('#myModalProp' + idUse).append('<p> <u>Expanded Description:</u> ' + value.expandedDesc + '</p></div>');
-    $('#myModalProp' + idUse).append('<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Add to Cart</button></div>'
-)
+    $('#myModalProp' + idUse).append('<div class="modal-footer"><div id="qtyStyleModal"><h11>Qty:</h11><input type="number" class="qty" id="qtyModal' + idUse + '"></div><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><a href="#" class="btn btn-primary" role="button" id="cartIdModal' + idUse + '">Add to Cart</a></div>');
+    addClick('#cartIdModal', idUse, '#qtyModal');
   });
 }
 
@@ -196,53 +284,17 @@ _.each(productsList, function(value, key){
 
   })
   //Append input box
-  $('#ident' + idUse).append('<div id="qtyStyle"><input type="number" class="qty" id="qty' + idUse + '"><div>');
+  $('#ident' + idUse).append('<div id="qtyStyle"><h11>Qty:</h11><input type="number" class="qty" id="qty' + idUse + '"></div>');
 
   //Appened Modal Button
   $('#ident' + idUse).append('<div class="paddedBot"><button type="button" class="btn btn-primary modalTime" data-toggle="modal" data-target="#myModal' + idUse +'"> More Info </button></div>')
 
   //Append Add Button
   $('#ident' + idUse).append('<div class="paddedLeft"><a href="#" class="btn btn-primary" role="button" id="cartId' + idUse + '">Add to Cart</a></div>')
-
-  $('#cartId' + idUse).click( function() {
-    if ($('#tr' + idUse).val() === undefined) {
-      $('#cartBody').append('<tr id="tr'+ idUse +'"></tr>');
-    }
-    if ($('#cartName' + idUse ).val() === undefined) {
-      $('#tr' + idUse).append('<td id="cartName' + idUse + '">' + nameArray[idUse] + '</td>');
-      $('#tr' + idUse).append('<td id="cartqty' + idUse + '"></td>');
-      $('#tr' + idUse).append('<td id="cartPrice' + idUse + '"></td>');
-    }
-    qtyArray[idUse] = (qtyArray[idUse] + parseInt($('#qty' + idUse).val()));
-
-    $('#cartqty' + idUse).html(qtyArray[idUse]);
-
-    $('#cartPrice' + idUse).html('$' + (qtyArray[idUse] * priceArray[idUse]).toFixed(2));
-
-    var qtyReduced = _.reduce(qtyArray, function(memo, value, key){
-    
-      return memo + value
-    
-    }, 0);
-
-    console.log('qtyArray', qtyArray[idUse]);
-    console.log('priceArray', priceArray[idUse]);
-    cartTotalGlobal += (parseInt($('#qty' + idUse).val()) * priceArray[idUse])
-    console.log('global',typeof cartTotalGlobal);
-    $('#cartTotal').remove();
-    $('#cartBody').append('<tr id="cartTotal"></tr>');
-    $('#cartTotal').append('<td> Total </td>');
-    $('#cartTotal').append('<td> Total Items: ' + qtyReduced + '</td>');
-    $('#cartTotal').append('<td>$' + cartTotalGlobal.toFixed(2) + '</td>')
-
-    if(qtyArray[idUse] === 0) {
-      $('#cartName' + idUse).remove();
-      $('#cartqty' +idUse).remove();
-      $('#cartPrice' + idUse).remove();
-    }
-    $('.qty').val('1');
-  })
+  //Add to cart click handler
+  addClick('#cartId',idUse, '#qty');
   $('.qty').val('1');
+  $('#cart').hide();
 })
 };
 
@@ -255,13 +307,15 @@ function appendCategory (uniqueProductList) {
 
 //Features Modal
 _.each(randoArray, function(value, key){
-  $('#myModalSpace').append('<div class="modal fade" id="myModalDiv' + key + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content" id="myModalPropSpace' + key + '"></div></div></div>')
-  $('#myModalPropSpace' + key).append('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="myModalLabel">' + value.name + '</h4></div>');
-  $('#myModalPropSpace' + key).append('<div class="modal-body"><img class="img-responsive" id="imageModal" src="'+ value.picture_url + '" alt="..." />');
-  $('#myModalPropSpace' + key).append('<p>Category: ' + value.category +'</p>');
-  $('#myModalPropSpace' + key).append('<p>Price: $' + value.price.toFixed(2) + '</p>' );
-  $('#myModalPropSpace' + key).append('<p> <u>Expanded Description:</u> ' + value.expandedDesc + '</p></div>');
-  $('#myModalPropSpace' + key).append('<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary">Add to Cart</button></div>');
+  var idUse = value.id;
+  $('#myModalSpace').append('<div class="modal fade" id="myModalDiv' + idUse + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content" id="myModalPropSpace' + idUse + '"></div></div></div>')
+  $('#myModalPropSpace' + idUse).append('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="myModalLabel">' + value.name + '</h4></div>');
+  $('#myModalPropSpace' + idUse).append('<div class="modal-body"><img class="img-responsive" id="imageModal" src="'+ value.picture_url + '" alt="..." />');
+  $('#myModalPropSpace' + idUse).append('<p>Category: ' + value.category +'</p>');
+  $('#myModalPropSpace' + idUse).append('<p>Price: $' + value.price.toFixed(2) + '</p>' );
+  $('#myModalPropSpace' + idUse).append('<p> <u>Expanded Description:</u> ' + value.expandedDesc + '</p></div>');
+  $('#myModalPropSpace' + idUse).append('<div class="modal-footer"><div id="qtyStyleModalSpace"><h11>Qty:</h11><input type="number" class="qty" id="qtyModalSpace' + idUse + '"></div><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><a href="#" class="btn btn-primary" role="button" id="cartIdModalSpace' + idUse + '">Add to Cart</a></div>');
+  addClick('#cartIdModalSpace', idUse, '#qtyModalSpace')
 })
 
 
@@ -270,19 +324,19 @@ _.each(randoArray, function(value, key){
 function appendFeatureList(randomizedArray) {
   var currentIndex = 0;
   setInterval(function() {
-    $('#featureBar').html('<div class="image-container"><div class="thumbnail animated fadeIn" id="animateThis"><h4>' + randomizedArray[currentIndex].name + '<div style="color:#e67e22"> Just $' + randomizedArray[currentIndex].price.toFixed(2) + '!!!</div></h4><img class="center-block" src="' + randomizedArray[currentIndex].picture_url +'" alt="..." id="pictureNails"><div id="modalButton"></div></div></div>')
-    $('#modalButton').html('<div class="paddedBot"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalDiv' + currentIndex +'"> More Info </button></div>')
+    $('#featureBar').html('<div class="image-container"><div class="animated fadeIn" id="animateThis"><h4>' + randomizedArray[currentIndex].name + '<div style="color:#e67e22"> Just $' + randomizedArray[currentIndex].price.toFixed(2) + '!!!</div></h4><img class="center-block" src="' + randomizedArray[currentIndex].picture_url +'" alt="..." id="pictureNails"><div id="modalButton"></div></div></div>')
+    $('#modalButton').html('<div class="paddedBot"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalDiv' + randomizedArray[currentIndex].id +'"> More Info </button></div>')
     currentIndex += 1;
     if (currentIndex === randomizedArray.length) {
       currentIndex = 0;
     }
     setTimeout(function() {
-      $('#animateThis').attr('class','thumbnail animated fadeOut')
+      $('#animateThis').attr('class','animated fadeOut')
     }, 7000)
   }, 8000)
 }
 
-$('#featureBar').html('<div class="image-container"><h2 class="thumbnail animated fadeIn" id="titleSplash">WELCOME TO THINGSNSTUFF </h2><h6>Click on a product in the feature slide or choose from the list below.</h6></div>')
+$('#featureBar').html('<div class="image-container"><h2 class="animated fadeIn" id="titleSplash">WELCOME TO THINGSNSTUFF </h2><h6>Click on a product in the feature slide or choose from the list below.</h6></div>')
 
 appendToPage(products);
 addCategory(products);

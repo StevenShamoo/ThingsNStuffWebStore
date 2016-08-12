@@ -29,6 +29,12 @@
       </ul>
       <form class="navbar-form navbar-right">
       <ul class="nav navbar-nav navbar-right">
+      <li id="numInCartList"><span id="numInCart">0 Items in Cart</span></li>
+      <li>
+        <button type="button" class="btn btn-primary" id="cartButton">
+          <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart
+        </button>
+      </li>
         <li><div class="input-group">
           <span class="input-group-addon" id="basic-addon1">Username:</span>
           <input type="text" class="form-control" placeholder="Enter Username" aria-describedby="basic-addon1">
@@ -52,20 +58,27 @@
 
 <div class="row" id="featureBar"></div>
 <div id="cart">
-  <h10>Cart</h10>
+  <h10><b>Cart</b></h10>
   <p>The cart can currently only add and remove items, no checkout set up.</p>
 
   <table class="table">
     <thead>
       <tr>
         <th>Item</th>
-        <th>Quanity</th>
+        <th>Quantity</th>
         <th>Total</th>
       </tr>
     </thead>
     <tbody id="cartBody">
     </tbody>
   </table>
+  <button type="button" class="btn pull-right btn-success btn-lg" id="checkOutButton">
+          <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Check Out
+  </button>
+  <button type="button" class="btn pull-right btn-primary btn-lg" id="clearButton">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Clear Cart
+  </button>
+
 </div>
 
 <p id="heyNow">All Categories</p>
@@ -80,6 +93,6 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="/main/main.js"></script>
+<script src="main/main.js"></script>
 </body>
 </html>
