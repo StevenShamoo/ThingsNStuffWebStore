@@ -110,7 +110,6 @@ function addClick(target, idUse, quanityInput) {
 
        //removeButton
     $('#removeItemHere' + idUse).click(function(){
-      console.log('cartTOts',priceArray[idUse] )
       cartTotalGlobal -= (qtyArray[idUse] * priceArray[idUse])
       qtyArray[idUse] = 0;
       qtyReduced = _.reduce(qtyArray, 
