@@ -1,0 +1,22 @@
+{
+  "name": "thingsnstuff",
+  "version": "1.0.0",
+  "description": "A webstore created using JS/jQuery, Bootstrap, animates.css and some vanilla css.  Username and password are showcase only and checkout is not available.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StevenShamoo/ThingsNStuffWebStore.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StevenShamoo/ThingsNStuffWebStore/issues"
+  },
+  "homepage": "https://github.com/StevenShamoo/ThingsNStuffWebStore#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
